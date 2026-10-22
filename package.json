@@ -1,0 +1,17 @@
+{
+  "name": "runjia-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "青岛润佳精造设计装饰有限公司 · GitHub Pages 静态官网",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs && node scripts/serve.mjs",
+    "preview": "node scripts/serve.mjs",
+    "prepare:pages": "npm run check && npm run build && npm test && node scripts/sync-pages.mjs",
+    "export:tree": "npm run prepare:pages && node scripts/public-tree.mjs",
+    "check": "node --check src/site.js && node --check src/content.mjs && node --check src/templates.mjs && node --check scripts/build.mjs && node --check scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs"
+  }
+}

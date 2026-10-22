@@ -1,0 +1,18 @@
+name: Static website checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci --ignore-scripts
+      - run: npm run prepare:pages
+      - name: Confirm generated pages match source
+        run: git diff --exit-code -- index.html 404.html about authorization cases contact services assets .nojekyll

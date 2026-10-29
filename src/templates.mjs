@@ -1,4 +1,4 @@
-import { company, services, process, brands } from './content.mjs';
+import { company, services, process, brands, cases } from './content.mjs';
 
 export const esc = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const arrow = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.4"/></svg>';
@@ -103,8 +103,29 @@ export function authorizationPage() {
 }
 
 export function casesPage() {
-  const body = `${breadcrumb('项目案例')}${subHero('PROJECT JOURNAL / 项目案例', '让真实项目，<br>讲述细节的价值。', '自有项目案例正在整理，确认后将逐步呈现。')}<section class="container cases-empty"><div class="case-outline" aria-hidden="true"><span class="case-outline-a"></span><span class="case-outline-b"></span><span class="case-outline-c"></span><span class="case-outline-label">REAL PROJECTS, REAL DETAILS</span></div><div><span class="outline-label">案例资料整理中</span><h2>这一页，为真实作品留白。</h2><p>目前尚未发布经确认可公开的自有项目案例。我们不会将供应商品牌案例、空间意向图或未经核实的照片作为润佳的施工成果。</p><p>后续案例将根据资料情况，呈现项目背景、处理范围与现场记录。涉及客户或项目隐私的内容，将在确认公开范围后再展示。</p><a class="text-link" href="../contact/">沟通您的项目需求 ${arrow}</a></div></section>${contactBand('../')}`;
-  return layout({ title: '项目案例｜润佳精造', description: '润佳精造自有项目案例正在整理中，仅展示经确认可公开的真实项目，不将供应商品牌案例作为自有成果。', base: '../', current: 'cases', body });
+  const base = '../';
+  const caseCards = cases.map(item => {
+    const service = services.find(s => s.slug === item.serviceSlug);
+    const brandHint = service?.brandKey === 'tengboshi'
+      ? `<span class="service-brand-hint">腾博室 · Tengboshi</span>`
+      : (service?.brandKey === 'kerakoll' ? `<span class="service-brand-hint">Kerakoll 体系</span>` : '');
+    return `<a class="case-card" href="${base}cases/${item.slug}/" data-case-brand="${service?.brandKey || ''}"><div class="case-card-top"><span class="index-number">${item.title}</span>${service ? `<span class="service-category">${service.categoryName}</span>` : ''}</div><div class="case-art">${service ? diagram(service.slug) : ''}</div><div class="case-card-body"><span class="service-english">${service ? service.english : 'PROJECT CASE'}</span><h3>${item.headline}</h3>${brandHint}<p>${item.summary}</p><span class="case-card-link">查看案例说明 ${northeast}</span></div></a>`;
+  }).join('');
+  const caseList = cases.length
+    ? `<section class="section container"><div class="section-heading"><div><p class="eyebrow">PUBLISHED CASES / 已发布案例</p><h2>已确认公开的项目案例。</h2></div><p class="section-description">仅收录经确认、可公开的真实自有项目；条目随资料确认情况更新。</p></div><div class="case-grid">${caseCards}</div></section>`
+    : `<section class="container cases-empty"><div class="case-outline" aria-hidden="true"><span class="case-outline-a"></span><span class="case-outline-b"></span><span class="case-outline-c"></span><span class="case-outline-label">REAL PROJECTS, REAL DETAILS</span></div><div><span class="outline-label">案例资料整理中</span><h2>这一页，为真实作品留白。</h2><p>目前尚未发布经确认可公开的自有项目案例。我们不会将供应商品牌案例、空间意向图或未经核实的照片作为润佳的施工成果。</p><p>后续案例将根据资料情况，呈现项目背景、处理范围与现场记录。涉及客户或项目隐私的内容，将在确认公开范围后再展示。</p><a class="text-link" href="${base}contact/">沟通您的项目需求 ${arrow}</a></div></section>`;
+  const body = `${breadcrumb('项目案例', base)}${subHero('PROJECT JOURNAL / 项目案例', '让真实项目，<br>讲述细节的价值。', cases.length ? '以下为经确认、可公开的真实自有项目案例。' : '自有项目案例正在整理，确认后将逐步呈现。')}${caseList}<section class="container case-policy"><div><p class="eyebrow">PUBLISHING RULES / 收录说明</p><h2>案例如何收录，<br>先讲清楚。</h2></div><ul><li><strong>只发真实自有项目</strong>：经确认可公开后才展示；不将供应商品牌案例、空间意向图或未经核实的照片作为润佳的施工成果。</li><li><strong>呈现内容</strong>：每个条目围绕项目背景、处理范围与现场记录展开，以双方确认的公开范围为准。</li><li><strong>品牌分开展示</strong>：防水防潮类案例标注 Kerakoll 体系；美缝、美容胶类案例标注腾博室体系，互不混挂。</li><li><strong>隐私优先</strong>：涉及客户或项目隐私的信息不公开；无客户标识、无客户评价。</li></ul></section>${contactBand(base)}`;
+  return layout({ title: '项目案例｜润佳精造', description: cases.length ? '润佳精造已发布的真实项目案例：项目背景、处理范围与现场记录，仅收录经确认可公开的自有项目。' : '润佳精造自有项目案例正在整理中，仅展示经确认可公开的真实项目，不将供应商品牌案例作为自有成果。', base, current: 'cases', body });
+}
+
+export function casePage(item) {
+  const base = '../../';
+  const service = services.find(s => s.slug === item.serviceSlug);
+  const brandNote = service?.brandKey === 'tengboshi'
+    ? '<p class="service-brand-note">本案例属于精细饰面服务范畴，采用腾博室相关产品体系；与 Kerakoll 防水防潮授权分开展示，不挂靠 Kerakoll。</p>'
+    : (service?.brandKey === 'kerakoll' ? '<p class="service-brand-note">本案例属于防水防潮服务范畴，可结合 Kerakoll 授权体系说明；与美缝、美容胶等腾博室体系业务分开展示。</p>' : '');
+  const body = `${breadcrumb(item.title, base)}<section class="container case-hero"><div><p class="eyebrow">PROJECT CASE / 项目案例</p>${service ? `<a class="case-service-label" href="${base}services/${service.slug}/">所属服务：${service.name} ${northeast}</a>` : ''}<h1>${item.headline}</h1><p class="case-summary">${item.summary}</p><div class="tag-list">${item.tags.map(tag => `<span>${tag}</span>`).join('')}</div>${brandNote}<a class="button button-dark" href="${base}contact/">咨询同类项目 ${northeast}</a></div><div class="service-hero-art">${service ? diagram(service.slug) : ''}<span>${service ? service.english : 'PROJECT CASE'}</span><p>节点构造意向示意，非该项目施工图</p></div></section><section class="section case-sections"><div class="container">${sectionHeading('CASE NOTES / 案例记录', '把这一单，讲具体。')}<div class="focus-grid">${item.sections.map(([title, text], i) => `<article><span class="index-number">0${i + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join('')}</div><p class="case-note">${item.note}</p></div></section><div class="container next-service"><a class="text-link" href="${base}cases/">${arrow} 返回项目案例</a><a href="${base}contact/"><span>有类似需求 / </span><strong>沟通您的项目</strong>${northeast}</a></div>${contactBand(base)}`;
+  return layout({ title: `${item.title}｜润佳精造项目案例`, description: `${item.summary} 本案例经确认后公开，仅呈现项目背景、处理范围与现场记录。项目咨询：${company.phone}。`, base, current: 'cases', body });
 }
 
 export function contactPage() {

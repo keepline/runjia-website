@@ -1,8 +1,8 @@
 import { mkdir, rm, copyFile, writeFile, stat } from 'node:fs/promises';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { company, services } from '../src/content.mjs';
-import { homePage, servicePage, aboutPage, authorizationPage, contactPage, casesPage, notFoundPage } from '../src/templates.mjs';
+import { company, services, cases } from '../src/content.mjs';
+import { homePage, servicePage, aboutPage, authorizationPage, contactPage, casesPage, casePage, notFoundPage } from '../src/templates.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const output = join(root, 'dist');
@@ -16,6 +16,7 @@ const pages = new Map([
   ['cases/index.html', casesPage()],
   ['404.html', notFoundPage()],
   ...services.map(service => [`services/${service.slug}/index.html`, servicePage(service)]),
+  ...cases.map(item => [`cases/${item.slug}/index.html`, casePage(item)]),
 ]);
 for (const [file, html] of pages) {
   await mkdir(dirname(join(output, file)), { recursive: true });

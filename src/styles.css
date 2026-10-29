@@ -23,3 +23,30 @@
 .authorization-stack{display:grid;gap:22px}
 .brand-card-secondary{background:#f0efe7;border-color:#d9d6c8}
 .brand-secondary-block{margin-top:48px}
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.case-card{display:block;border:1px solid #dde1d4;background:#eef0e8;transition:transform .25s,background .25s}
+.case-card:hover{transform:translateY(-4px);background:#e8ecdf}
+.case-card-top{padding:23px 26px 0;display:flex;justify-content:space-between;gap:16px;font-size:9px;color:#717b68}
+.case-card-top .index-number{letter-spacing:.5px}
+.case-art{height:132px;display:grid;place-items:center;overflow:hidden}
+.case-art .service-diagram{width:118px;height:108px;color:#687e66}
+.case-card-body{padding:8px 26px 23px}
+.case-card h3{font-size:17px;font-weight:500;margin:9px 0 4px}
+.case-card p{font-size:11px;line-height:1.9;color:#6d7868;min-height:42px;max-width:285px}
+.case-card-link{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #d7ddce;margin-top:18px;padding-top:15px;font-size:10px}
+.case-card-link svg{width:18px;height:18px}
+.case-policy{display:grid;grid-template-columns:1fr 1.2fr;gap:70px;border-top:1px solid var(--line);padding-block:62px 95px}
+.case-policy h2{font-size:27px;margin-top:16px;line-height:1.6}
+.case-policy ul{list-style:none;margin:0;padding:0}
+.case-policy li{border-top:1px solid #d5ddcb;padding:17px 0;font-size:13px;color:#76836b;line-height:1.9}
+.case-policy li strong{color:var(--ink);font-weight:500}
+.case-hero{padding-block:55px 70px;display:grid;grid-template-columns:1.1fr 1fr;gap:90px;align-items:center}
+.case-service-label{display:inline-block;font-size:14px;color:#718067;margin-top:24px;border-bottom:1px solid #b7c2a6;padding-bottom:2px}
+.case-hero h1{font-size:36px;line-height:1.6;margin-top:14px}
+.case-summary{font-size:13px;color:#747f6b;line-height:2;max-width:510px;margin-top:22px}
+.case-hero .button{margin-top:30px}
+.case-sections{background:#ecefe5;padding-block:70px}
+.case-sections .case-note{font-size:10px;color:#8a947f;margin-top:26px}
+@media(max-width:1180px){.case-grid{gap:16px}.case-hero{gap:50px}.case-hero h1{font-size:32px}}
+@media(max-width:900px){.case-grid{grid-template-columns:repeat(2,1fr)}.case-policy{gap:35px;padding-block:50px 65px}.case-policy h2{font-size:24px}.case-policy li{font-size:12px}.case-hero{grid-template-columns:1.1fr 1fr;gap:30px;padding-block:35px 50px}.case-hero h1{font-size:29px}.case-summary{font-size:12px;margin-top:19px}.service-hero-art{min-height:350px}}
+@media(max-width:640px){.case-grid{grid-template-columns:1fr}.case-card-top{padding:18px 20px 0}.case-art{height:110px}.case-art .service-diagram{width:100px;height:92px}.case-card-body{padding:8px 20px 20px}.case-card h3{font-size:16px}.case-card p{min-height:0}.case-policy{grid-template-columns:1fr;gap:25px;padding-block:40px 60px}.case-hero{grid-template-columns:1fr;gap:35px;padding-block:35px 45px}.case-service-label{font-size:12px;margin-top:20px}.case-hero h1{font-size:28px;margin-top:12px}.case-summary{margin-top:18px}.case-sections{padding-block:55px}}

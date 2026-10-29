@@ -129,6 +129,15 @@ export const services = [
   },
 ];
 
+/** 项目案例：仅收录经确认、可公开的真实自有项目（见 docs/content-boundaries.md「案例与视觉」）。
+ *  依据仓库现有材料核对，当前没有任何可发布的真实案例条目，列表保持为空；
+ *  不虚构客户项目、不将供应商品牌案例或意向图作为自有成果、不收录客户隐私信息。
+ *  条目确认后在此追加，字段约定：
+ *  { slug, serviceSlug, title, headline, summary, tags: [],
+ *    sections: [['项目背景', text], ['处理范围', text], ['现场记录', text]], note }
+ *  品牌归属由 serviceSlug 对应服务的 brandKey 决定，避免重复标注导致混挂。 */
+export const cases = [];
+
 export const process = [
   ['沟通需求', '从空间用途、现场现象与您的期待开始。'],
   ['了解现场', '结合现场条件，梳理问题与处理范围。'],

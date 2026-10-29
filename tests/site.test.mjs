@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { services } from '../src/content.mjs';
+import { services, cases } from '../src/content.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../dist');
 async function list(dir) { const entries = await readdir(dir, { withFileTypes: true }); return (await Promise.all(entries.map(e => e.isDirectory() ? list(join(dir, e.name)) : join(dir, e.name)))).flat(); }
 const allFiles = await list(root);
 const htmlFiles = allFiles.filter(path => path.endsWith('.html'));
-test('Build contains 11 content pages, six exact service detail pages, and a custom 404', async () => {
-  assert.equal(htmlFiles.length, 12);
+test('Build contains 11 content pages, six exact service detail pages, published case detail pages, and a custom 404', async () => {
+  assert.equal(htmlFiles.length, 12 + cases.length);
   for (const s of services) assert.ok((await readFile(join(root, `services/${s.slug}/index.html`), 'utf8')).includes(`<p class="service-name-label">${s.name}</p>`));
 });
 test('All pages have a language, unique title, one h1, and the correct phone', async () => {
@@ -58,6 +58,25 @@ test('Public build includes no certificate, customer upload, tracking script, or
   assert.match(home, /2026\.01\.01/);
   assert.match(home, /2026\.12\.31/);
   assert.match(home, /中国大陆境内/);
+});
+test('Cases page follows the publishing boundary: honest empty state or confirmed real cases only', async () => {
+  const page = await readFile(join(root, 'cases/index.html'), 'utf8');
+  assert.match(page, /只发真实自有项目/);
+  assert.match(page, /品牌分开展示/);
+  if (cases.length === 0) {
+    assert.match(page, /案例资料整理中/);
+    assert.match(page, /不将供应商品牌案例、空间意向图或未经核实的照片作为润佳的施工成果/);
+    assert.ok(!page.includes('class="case-card"'), 'Empty case data must not render fabricated case cards');
+  } else {
+    for (const item of cases) {
+      const detail = await readFile(join(root, `cases/${item.slug}/index.html`), 'utf8');
+      assert.equal((detail.match(/<h1\b/g) || []).length, 1);
+      assert.match(detail, /项目背景|处理范围|现场记录/);
+      const service = services.find(s => s.slug === item.serviceSlug);
+      if (service?.brandKey === 'kerakoll') assert.match(detail, /与美缝、美容胶等腾博室体系业务分开展示/);
+      if (service?.brandKey === 'tengboshi') assert.match(detail, /不挂靠 Kerakoll/);
+    }
+  }
 });
 test('Hero is a self-contained SVG and public payload stays lightweight', async () => {
   const svg = await readFile(join(root, 'assets/hero-architecture.svg'), 'utf8');

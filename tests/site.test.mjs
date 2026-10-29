@@ -67,3 +67,29 @@ test('Hero is a self-contained SVG and public payload stays lightweight', async 
   const total = (await Promise.all(allFiles.map(async f => (await stat(f)).size))).reduce((a, b) => a + b, 0);
   assert.ok(total < 1_000_000, `Public build too large: ${total} bytes`);
 });
+test('Kerakoll framing stays on waterproofing pages and finishing pages use Tengboshi framing', async () => {
+  for (const s of services) {
+    const html = await readFile(join(root, `services/${s.slug}/index.html`), 'utf8');
+    if (s.category === 'waterproofing') {
+      assert.match(html, /Kerakoll/);
+      assert.match(html, /防水防潮系列产品施工服务代理商/);
+      assert.match(html, /中国大陆境内/);
+      assert.ok(!html.includes('腾博室'), `${s.slug} page must not carry the finishing supplier`);
+    } else {
+      assert.match(html, /腾博室/);
+      assert.ok(!html.includes('Kerakoll'), `${s.slug} page must not carry Kerakoll framing`);
+    }
+  }
+});
+test('Cases page stays honestly empty and lists the pre-publication checklist', async () => {
+  const html = await readFile(join(root, 'cases/index.html'), 'utf8');
+  assert.match(html, /案例资料整理中/);
+  assert.match(html, /发布前，我们会核对/);
+  for (const item of ['客户确认可公开', '项目信息如实记录', '照片来自自有现场', '品牌表述符合授权边界', '不借用他人作品']) assert.ok(html.includes(item), `Missing checklist item: ${item}`);
+});
+test('No supplier certifications or marketing claims are copied as own promises', async () => {
+  for (const file of htmlFiles) {
+    const html = await readFile(file, 'utf8');
+    assert.ok(!/PICC|B\s?Corp|EC1|母婴级|著名品牌|3\.15|七大洲|世界古文化/.test(html), file);
+  }
+});

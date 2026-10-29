@@ -17,3 +17,9 @@
 @media(max-width:360px){.container{width:calc(100% - 32px)}.hero h1{font-size:31px}.header-contact{font-size:9px;gap:4px}.header-contact svg{display:none}.hero-actions{gap:18px}.hero-actions .button{padding-inline:14px;gap:18px}.service-card{grid-template-columns:94px 1fr}.service-diagram{width:99px}.service-card-body{padding-left:6px;padding-right:13px}.service-card h3{font-size:15px}.service-english{font-size:5.5px}.footer-contact .phone-number{font-size:19px}.contact-large-phone{font-size:31px}.service-hero h1{font-size:28px}.authorization-details>div{font-size:10px;gap:9px;grid-template-columns:65px 1fr}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 @media print{.site-header,.mobile-contact,.site-footer,.hero-actions,.contact-band,.menu-button{display:none}body{background:#fff;color:#000}.container{width:100%}.section{padding-block:30px}.hero{display:block;min-height:0}.hero-visual{max-height:300px}.service-grid{grid-template-columns:repeat(2,1fr)}a{color:#000}.service-card,.authorization-card{break-inside:avoid}}
+
+.service-brand-hint{display:inline-block;margin:8px 0 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6d7a64}
+.service-brand-note{margin:18px 0 0;font-size:13px;line-height:1.7;color:#5f6b58}
+.authorization-stack{display:grid;gap:22px}
+.brand-card-secondary{background:#f0efe7;border-color:#d9d6c8}
+.brand-secondary-block{margin-top:48px}

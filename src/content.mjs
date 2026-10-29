@@ -3,15 +3,37 @@ export const company = {
   brand: '润佳精造',
   phone: '15165268668',
   area: '全国服务',
-  authorization: 'Kerakoll 防水防潮系列产品施工服务代理商',
+  authorization: 'Kerakoll 防水防潮施工服务代理商',
   territory: '中国大陆境内',
   startDate: '2026-01-01',
   endDate: '2026-12-31',
 };
 
+/** 品牌合作公开摘要：Kerakoll 为有期限授权；腾博室为美缝相关产品体系，与 Kerakoll 分开展示。 */
+export const brands = {
+  kerakoll: {
+    name: 'Kerakoll',
+    nameZh: '柯瑞克',
+    role: '防水防潮施工服务代理商',
+    scope: '仅限防水防潮施工服务，不涵盖美缝、美容胶等精细饰面业务。',
+    territory: '中国大陆境内',
+    startDate: '2026-01-01',
+    endDate: '2026-12-31',
+  },
+  tengboshi: {
+    name: '腾博室',
+    nameEn: 'Tengboshi',
+    company: '河北腾博室建材有限公司',
+    role: '美缝相关产品体系',
+    scope: '高定美缝、全屋美容胶等精细饰面服务采用腾博室相关产品体系施工，与 Kerakoll 授权分开展示，不构成 Kerakoll 授权业务。',
+    focus: '水性氢化彩砂等美缝材料',
+  },
+};
+
 export const services = [
   {
     slug: 'basement', number: '01', category: 'waterproofing', categoryName: '防水防潮',
+    brandKey: 'kerakoll',
     name: '地下室防水防潮系统', shortName: '地下室防水防潮', english: 'BASEMENT PROTECTION',
     headline: '从空间底层，\n细致考虑防水防潮。',
     summary: '关注地下空间的渗水、潮气与节点处理，让方案回到具体的现场条件。',
@@ -27,6 +49,7 @@ export const services = [
   },
   {
     slug: 'roof', number: '02', category: 'waterproofing', categoryName: '防水防潮',
+    brandKey: 'kerakoll',
     name: '屋面防水系统', shortName: '屋面防水', english: 'ROOF WATERPROOFING',
     headline: '从屋面到节点，\n照顾每一处衔接。',
     summary: '围绕屋面基层、排水与重点节点，梳理防水处理思路。',
@@ -42,6 +65,7 @@ export const services = [
   },
   {
     slug: 'window', number: '03', category: 'waterproofing', categoryName: '防水防潮',
+    brandKey: 'kerakoll',
     name: '窗户防水系统', shortName: '窗户防水', english: 'WINDOW DETAILING',
     headline: '窗边的细节，\n也是空间的边界。',
     summary: '从窗框、墙体与密封交界入手，关注雨水路径与局部渗漏。',
@@ -57,6 +81,7 @@ export const services = [
   },
   {
     slug: 'pool', number: '04', category: 'waterproofing', categoryName: '防水防潮',
+    brandKey: 'kerakoll',
     name: '鱼池泳池防水系统', shortName: '鱼池泳池防水', english: 'POOL WATERPROOFING',
     headline: '与水相伴的空间，\n更需细致的系统考虑。',
     summary: '结合水池用途、基层与饰面条件，关注长期涉水区域的节点处理。',
@@ -72,33 +97,35 @@ export const services = [
   },
   {
     slug: 'grout', number: '05', category: 'finishing', categoryName: '精细饰面',
+    brandKey: 'tengboshi',
     name: '高定美缝系列', shortName: '高定美缝', english: 'REFINED JOINT FINISHES',
     headline: '让缝隙的分寸，\n呼应空间的质感。',
-    summary: '结合砖面、缝宽与空间色调，细致讨论美缝的色彩和完成效果。',
-    intro: '缝隙虽小，也会影响整个空间的观感。我们结合铺贴条件与饰面风格，沟通颜色、纹理和收口，让细节与空间表达协调。',
-    tags: ['色彩搭配', '瓷砖缝隙', '饰面细节'],
+    summary: '采用腾博室相关美缝产品体系，结合砖面、缝宽与空间色调，细致讨论色彩和完成效果。',
+    intro: '缝隙虽小，也会影响整个空间的观感。高定美缝服务采用腾博室（河北腾博室建材）相关美缝产品体系，结合铺贴条件与饰面风格，沟通颜色、纹理和收口，让细节与空间表达协调。本项服务与 Kerakoll 防水防潮授权分开展示。',
+    tags: ['腾博室美缝', '色彩搭配', '瓷砖缝隙'],
     focus: [
       ['从实物搭配开始', '沟通瓷砖颜色、纹理、光泽与空间光线，优先以实物样板确认颜色方向。'],
       ['关注施工条件', '结合缝宽、缝深、基层干燥程度和清洁状态讨论施工前准备。'],
       ['确认效果与边界', '将颜色、纹理、收口方式及检查标准在施工前讲清楚，减少理解偏差。'],
     ],
     prepare: ['砖面和空间整体照片', '缝宽、铺贴完成时间（如了解）', '偏好的颜色与饰面效果'],
-    note: '屏幕色彩与实物可能有差异，最终以双方确认的材料和样板为准；产品性能以适用的产品资料为准。',
+    note: '屏幕色彩与实物可能有差异，最终以双方确认的材料和样板为准；产品性能以适用的产品资料为准。美缝不挂靠 Kerakoll 授权。',
   },
   {
     slug: 'sealant', number: '06', category: 'finishing', categoryName: '精细饰面',
+    brandKey: 'tengboshi',
     name: '全屋美容胶系列', shortName: '全屋美容胶', english: 'INTERIOR FINISHING DETAILS',
     headline: '把空间的完整，\n留在细微的收口里。',
-    summary: '关注台面、墙面与洁具等交接部位，梳理全屋收口的协调表达。',
-    intro: '不同材质之间的交界，需要兼顾观感与使用条件。我们围绕实际部位，沟通材料相容性、颜色和收口尺度，让细节更清晰。',
-    tags: ['全屋收口', '材质交接', '细节协调'],
+    summary: '与腾博室相关精细饰面体系一并沟通，关注台面、墙面与洁具等交接部位的收口表达。',
+    intro: '不同材质之间的交界，需要兼顾观感与使用条件。全屋美容胶与高定美缝同属精细饰面服务，采用腾博室相关产品体系进行施工沟通，与 Kerakoll 防水防潮授权分开展示。我们围绕实际部位，沟通材料相容性、颜色和收口尺度，让细节更清晰。',
+    tags: ['腾博室体系', '全屋收口', '材质交接'],
     focus: [
       ['梳理全屋部位', '根据现场情况列出厨卫、台面、洁具及其他交接位置的具体需求。'],
       ['匹配接触材质', '结合接触材料、部位用途及环境条件核对适合的产品与施工要求。'],
       ['统一收口观感', '沟通颜色、线条宽度、转角和端部处理，明确最终效果的确认方式。'],
     ],
     prepare: ['需要收口的具体部位照片', '相邻材料和使用环境', '颜色偏好及已有胶缝情况'],
-    note: '美容胶收口不等同于结构修复或建筑防水系统；适用材料、维护方式和服务边界需单独确认。',
+    note: '美容胶收口不等同于结构修复或建筑防水系统；适用材料、维护方式和服务边界需单独确认。美容胶不挂靠 Kerakoll 授权。',
   },
 ];
 
